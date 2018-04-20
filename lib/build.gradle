@@ -2,6 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.novoda.bintray-release'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 def cfg = rootProject.ext.configuration // 配置
 def libs = rootProject.ext.libraries // 库
@@ -73,7 +74,7 @@ allprojects {
 publish{
     userOrg = 'fengzhizi715'
     groupId = 'com.safframework.livedata'
-    artifactId = 'ext'
+    artifactId = 'livedata-ext'
     publishVersion = '0.0.1'
     desc = 'this is a livedata extension library for android'
     website = 'https://github.com/fengzhizi715/LiveDataExtension'
