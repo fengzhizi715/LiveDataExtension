@@ -12,7 +12,7 @@ import io.reactivex.*
  * @date: 2018-04-20 16:41
  * @version V1.0 <描述当前版本功能>
  */
-fun <T> Observable<T>.toLiveData(strategy: BackpressureStrategy = BackpressureStrategy.LATEST): LiveData<T> = LiveDataReactiveStreams.fromPublisher(this.toFlowable(strategy))
+fun <T> Observable<T>.toLiveData(strategy: BackpressureStrategy = BackpressureStrategy.BUFFER): LiveData<T> = LiveDataReactiveStreams.fromPublisher(this.toFlowable(strategy))
 
 fun <T> Flowable<T>.toLiveData(): LiveData<T> = LiveDataReactiveStreams.fromPublisher(this)
 
