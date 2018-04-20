@@ -45,13 +45,15 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    compile "io.reactivex.rxjava2:rxandroid:$libs.rxandroid"
-    compile "io.reactivex.rxjava2:rxkotlin:$libs.rxkotlin"
+    implementation "io.reactivex.rxjava2:rxandroid:$libs.rxandroid"
+    implementation "io.reactivex.rxjava2:rxkotlin:$libs.rxkotlin"
 
     // Architecture components
-    compile "android.arch.lifecycle:runtime:$libs.lifecycle"
-    compile "android.arch.lifecycle:extensions:$libs.lifecycle"
+    implementation "android.arch.lifecycle:runtime:$libs.lifecycle"
+    implementation "android.arch.lifecycle:extensions:$libs.lifecycle"
     kapt "android.arch.lifecycle:compiler:$libs.lifecycle"
+
+    implementation "android.arch.lifecycle:reactivestreams:$libs.lifecycle"
 }
 
 repositories {

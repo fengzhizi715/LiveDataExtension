@@ -14,7 +14,7 @@ ext {
 
             rxandroid                 : "2.0.1",
             rxkotlin                  : "2.1.0",
-            lifecycle                 : "1.1.0"
+            lifecycle                 : "1.1.1"
     ]
 }
 
