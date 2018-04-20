@@ -1,10 +1,8 @@
 package com.safframework.livedata
 
+import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.Observer
-import io.reactivex.BackpressureStrategy
-import io.reactivex.Flowable
-import io.reactivex.android.MainThreadDisposable
+import io.reactivex.Observable
 
 /**
  *
@@ -14,17 +12,4 @@ import io.reactivex.android.MainThreadDisposable
  * @date: 2018-04-20 11:04
  * @version V1.0 <描述当前版本功能>
  */
-fun <T> LiveData<T>.toFlowable(): Flowable<T> =
-        Flowable.create({ emitter ->
-            val observer = Observer<T> {
-                it?.let { emitter.onNext(it) }
-            }
-            observeForever(observer)
-
-            emitter.setCancellable {
-                object : MainThreadDisposable() {
-
-                    override fun onDispose() = removeObserver(observer)
-                }
-            }
-        }, BackpressureStrategy.LATEST)
+fun <T> LiveData<T>.toObservable(owner: LifecycleOwner? = null): Observable<T> = LiveDataObservable(owner, this)
