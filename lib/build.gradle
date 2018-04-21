@@ -77,7 +77,7 @@ publish{
     userOrg = 'fengzhizi715'
     groupId = 'com.safframework.livedata'
     artifactId = 'livedata-ext'
-    publishVersion = '0.0.1'
+    publishVersion = '0.0.2'
     desc = 'this is a livedata extension library for android'
     website = 'https://github.com/fengzhizi715/LiveDataExtension'
 }
