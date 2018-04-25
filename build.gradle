@@ -13,7 +13,7 @@ ext {
             supportVersion            : "27.0.2",
 
             rxandroid                 : "2.0.1",
-            rxkotlin                  : "2.1.0",
+            rxkotlin                  : "2.2.0",
             lifecycle                 : "1.1.1"
     ]
 }
