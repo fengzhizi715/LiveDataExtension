@@ -4,3 +4,5 @@
 * 支持LiveData转换成Observable、Flowable
 
 * 支持RxJava的Observable、Flowbale、Completable、Single、Maybe转换成LiveData
+
+* 支持RxJava的Observable、Flowbale、Completable、Single、Maybe绑定Lifecycle
