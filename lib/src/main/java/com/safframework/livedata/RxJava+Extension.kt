@@ -1,5 +1,6 @@
 package com.safframework.livedata
 
+import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.LiveDataReactiveStreams
 import io.reactivex.*
@@ -21,3 +22,24 @@ fun <T> Completable.toLiveData(): LiveData<T> = LiveDataReactiveStreams.fromPubl
 fun <T> Single<T>.toLiveData(): LiveData<T> = LiveDataReactiveStreams.fromPublisher(this.toFlowable())
 
 fun <T> Maybe<T>.toLiveData(): LiveData<T> = LiveDataReactiveStreams.fromPublisher(this.toFlowable())
+
+inline fun <reified T> Observable<T>.bindLifecycle(owner: LifecycleOwner): Observable<T> =
+        LifecycleConvert.bindLifecycle(this, owner)
+
+inline fun <reified T> Single<T>.bindLifecycle(owner: LifecycleOwner): Maybe<T> =
+        LifecycleConvert.bindLifecycle(this, owner)
+
+inline fun <reified T> Single<T>.bindLifecycleWithError(owner: LifecycleOwner): Single<T> =
+        LifecycleConvert.bindLifecycleWithError(this, owner)
+
+inline fun <reified T> Maybe<T>.bindLifecycle(owner: LifecycleOwner): Maybe<T> =
+        LifecycleConvert.bindLifecycle(this, owner)
+
+inline fun <reified T> Flowable<T>.bindLifecycle(owner: LifecycleOwner): Flowable<T> =
+        LifecycleConvert.bindLifecycle(this, owner)
+
+inline fun Completable.bindLifecycle(owner: LifecycleOwner): Completable =
+        LifecycleConvert.bindLifecycle(this, owner)
+
+inline fun Completable.bindLifecycleWithError(owner: LifecycleOwner): Completable =
+        LifecycleConvert.bindLifecycleWithError(this, owner)
