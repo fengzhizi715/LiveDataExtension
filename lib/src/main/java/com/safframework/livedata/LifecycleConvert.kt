@@ -3,6 +3,7 @@ package com.safframework.livedata
 import android.arch.lifecycle.GenericLifecycleObserver
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleOwner
+import android.os.Looper
 import io.reactivex.*
 import io.reactivex.android.MainThreadDisposable
 import io.reactivex.disposables.Disposables
@@ -62,7 +63,7 @@ internal class LifecycleObservable(private val owner: LifecycleOwner)
 
     override fun subscribeActual(observer: Observer<in Lifecycle.Event>) {
 
-        if (!checkMainThread()) {
+        if (Thread.currentThread() != Looper.getMainLooper().thread) {
 
             observer.onSubscribe(Disposables.empty())
             observer.onError(IllegalStateException("Expected to be called on the main thread but was " + Thread.currentThread().name))
