@@ -84,7 +84,7 @@ internal class LifecycleObservable(private val owner: LifecycleOwner)
 
     fun checkInActive(event: Lifecycle.Event):Boolean = Lifecycle.Event.ON_STOP == event
 
-    fun shouldBeActive() = owner.lifecycle.currentState.isAtLeast(Lifecycle.State.CREATED)
+    fun shouldBeActive():Boolean = owner.lifecycle.currentState.isAtLeast(Lifecycle.State.CREATED)
 
     fun isAttachedTo(owner: LifecycleOwner):Boolean = this.owner === owner
 }
