@@ -23,16 +23,16 @@ fun <T> Single<T>.toLiveData(): LiveData<T> = LiveDataReactiveStreams.fromPublis
 
 fun <T> Maybe<T>.toLiveData(): LiveData<T> = LiveDataReactiveStreams.fromPublisher(this.toFlowable())
 
-inline fun <reified T> Observable<T>.bindLifecycle(owner: LifecycleOwner): Observable<T> = LifecycleConvert.bindLifecycle(this, owner)
+fun <T> Observable<T>.bindLifecycle(owner: LifecycleOwner): Observable<T> = LifecycleConvert.bindLifecycle(this, owner)
 
-inline fun <reified T> Single<T>.bindLifecycle(owner: LifecycleOwner): Maybe<T> = LifecycleConvert.bindLifecycle(this, owner)
+fun <T> Flowable<T>.bindLifecycle(owner: LifecycleOwner): Flowable<T> = LifecycleConvert.bindLifecycle(this, owner)
 
-inline fun <reified T> Single<T>.bindLifecycleWithError(owner: LifecycleOwner): Single<T> = LifecycleConvert.bindLifecycleWithError(this, owner)
+fun Completable.bindLifecycle(owner: LifecycleOwner): Completable = LifecycleConvert.bindLifecycle(this, owner)
 
-inline fun <reified T> Maybe<T>.bindLifecycle(owner: LifecycleOwner): Maybe<T> = LifecycleConvert.bindLifecycle(this, owner)
+fun Completable.bindLifecycleWithError(owner: LifecycleOwner): Completable = LifecycleConvert.bindLifecycleWithError(this, owner)
 
-inline fun <reified T> Flowable<T>.bindLifecycle(owner: LifecycleOwner): Flowable<T> = LifecycleConvert.bindLifecycle(this, owner)
+fun <T> Single<T>.bindLifecycle(owner: LifecycleOwner): Maybe<T> = LifecycleConvert.bindLifecycle(this, owner)
 
-inline fun Completable.bindLifecycle(owner: LifecycleOwner): Completable = LifecycleConvert.bindLifecycle(this, owner)
+fun <T> Single<T>.bindLifecycleWithError(owner: LifecycleOwner): Single<T> = LifecycleConvert.bindLifecycleWithError(this, owner)
 
-inline fun Completable.bindLifecycleWithError(owner: LifecycleOwner): Completable = LifecycleConvert.bindLifecycleWithError(this, owner)
+fun <T> Maybe<T>.bindLifecycle(owner: LifecycleOwner): Maybe<T> = LifecycleConvert.bindLifecycle(this, owner)
