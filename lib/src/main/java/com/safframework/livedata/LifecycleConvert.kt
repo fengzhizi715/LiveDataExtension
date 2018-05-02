@@ -22,40 +22,31 @@ import java.util.concurrent.CancellationException
 object LifecycleConvert {
 
     @JvmStatic
-    fun <T> bindLifecycle(observer: Observable<T>, owner: LifecycleOwner): Observable<T> =
-            observer.compose(LifecycleConvert.bind(owner))
+    fun <T> bindLifecycle(observer: Observable<T>, owner: LifecycleOwner): Observable<T> = observer.compose(LifecycleConvert.bind(owner))
 
     @JvmStatic
-    fun <T> bindLifecycle(single: Single<T>, owner: LifecycleOwner): Maybe<T> =
-            single.toMaybe().compose(LifecycleConvert.bind(owner))
+    fun <T> bindLifecycle(single: Single<T>, owner: LifecycleOwner): Maybe<T> = single.toMaybe().compose(LifecycleConvert.bind(owner))
 
     @JvmStatic
-    fun <T> bindLifecycleWithError(single: Single<T>, owner: LifecycleOwner): Single<T> =
-            single.compose(LifecycleConvert.bind(owner))
+    fun <T> bindLifecycleWithError(single: Single<T>, owner: LifecycleOwner): Single<T> = single.compose(LifecycleConvert.bind(owner))
 
     @JvmStatic
-    fun <T> bindLifecycle(maybe: Maybe<T>, owner: LifecycleOwner): Maybe<T> =
-            maybe.compose(LifecycleConvert.bind(owner))
+    fun <T> bindLifecycle(maybe: Maybe<T>, owner: LifecycleOwner): Maybe<T> = maybe.compose(LifecycleConvert.bind(owner))
 
     @JvmStatic
-    fun <T> bindLifecycle(flowable: Flowable<T>, owner: LifecycleOwner): Flowable<T> =
-            flowable.compose(LifecycleConvert.bind(owner))
+    fun <T> bindLifecycle(flowable: Flowable<T>, owner: LifecycleOwner): Flowable<T> = flowable.compose(LifecycleConvert.bind(owner))
 
     @JvmStatic
-    fun bindLifecycle(completable: Completable, owner: LifecycleOwner): Completable =
-            completable.bindLifecycleWithError(owner).onErrorComplete { it is CancellationException }
+    fun bindLifecycle(completable: Completable, owner: LifecycleOwner): Completable = completable.bindLifecycleWithError(owner).onErrorComplete { it is CancellationException }
 
     @JvmStatic
-    fun bindLifecycleWithError(completable: Completable, owner: LifecycleOwner): Completable =
-            completable.compose(LifecycleConvert.bind<Nothing>(owner))
+    fun bindLifecycleWithError(completable: Completable, owner: LifecycleOwner): Completable = completable.compose(LifecycleConvert.bind<Nothing>(owner))
 
     @JvmStatic
-    fun <T> bind(owner: LifecycleOwner): LifecycleTransformer<T> =
-            LifecycleTransformer(LifecycleObservable(owner))
+    fun <T> bind(owner: LifecycleOwner): LifecycleTransformer<T> = LifecycleTransformer(LifecycleObservable(owner))
 
     @JvmStatic
-    fun lifecycleObservable(owner: LifecycleOwner): Observable<Lifecycle.Event> =
-            LifecycleObservable(owner)
+    fun lifecycleObservable(owner: LifecycleOwner): Observable<Lifecycle.Event> = LifecycleObservable(owner)
 }
 
 internal class LifecycleObservable(private val owner: LifecycleOwner)
@@ -89,13 +80,13 @@ internal class LifecycleObservable(private val owner: LifecycleOwner)
         }
     }
 
-    fun checkInActiveState() = owner.lifecycle.currentState == Lifecycle.State.DESTROYED
+    fun checkInActiveState():Boolean = owner.lifecycle.currentState == Lifecycle.State.DESTROYED
 
-    fun checkInActive(event: Lifecycle.Event) = Lifecycle.Event.ON_STOP == event
+    fun checkInActive(event: Lifecycle.Event):Boolean = Lifecycle.Event.ON_STOP == event
 
     fun shouldBeActive() = owner.lifecycle.currentState.isAtLeast(Lifecycle.State.CREATED)
 
-    fun isAttachedTo(owner: LifecycleOwner) = this.owner === owner
+    fun isAttachedTo(owner: LifecycleOwner):Boolean = this.owner === owner
 }
 
 class LifecycleTransformer<T> internal constructor(
@@ -109,23 +100,16 @@ class LifecycleTransformer<T> internal constructor(
     private val inactive = observable.filter { observable.checkInActive(it) }
     private val active get() = observable.shouldBeActive()
 
-    override fun apply(upstream: Observable<T>): ObservableSource<T> {
-        return upstream.filter { active }.takeUntil(inactive)
-    }
+    override fun apply(upstream: Observable<T>): ObservableSource<T> = upstream.filter { active }.takeUntil(inactive)
 
-    override fun apply(upstream: Flowable<T>): Publisher<T> {
-        return upstream.filter { active }.takeUntil(inactive.toFlowable(BackpressureStrategy.LATEST))
-    }
+    override fun apply(upstream: Flowable<T>): Publisher<T> = upstream.filter { active }.takeUntil(inactive.toFlowable(BackpressureStrategy.LATEST))
 
-    override fun apply(upstream: Single<T>): SingleSource<T> {
-        return upstream.filterOrNever(Predicate { active }).takeUntil(inactive.firstOrError())
-    }
+    override fun apply(upstream: Single<T>): SingleSource<T> = upstream.filterOrNever(Predicate { active }).takeUntil(inactive.firstOrError())
 
-    override fun apply(upstream: Maybe<T>): MaybeSource<T> {
-        return upstream.filter { active }.takeUntil(inactive.firstElement())
-    }
+    override fun apply(upstream: Maybe<T>): MaybeSource<T> = upstream.filter { active }.takeUntil(inactive.firstElement())
 
     override fun apply(upstream: Completable): CompletableSource {
+
         val completableAfterActive = upstream.andThen {
             if (active) {
                 it.onComplete()
@@ -149,13 +133,9 @@ class LifecycleTransformer<T> internal constructor(
         return observable == that?.observable
     }
 
-    override fun hashCode(): Int {
-        return observable.hashCode()
-    }
+    override fun hashCode(): Int = observable.hashCode()
 
-    override fun toString(): String {
-        return "LifecycleTransformer{" +
-                "observable=" + observable +
-                '}'.toString()
-    }
+    override fun toString(): String = "LifecycleTransformer{" +
+            "observable=" + observable +
+            '}'.toString()
 }
