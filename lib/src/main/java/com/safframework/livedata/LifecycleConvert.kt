@@ -135,7 +135,5 @@ class LifecycleTransformer<T> internal constructor(
 
     override fun hashCode(): Int = observable.hashCode()
 
-    override fun toString(): String = "LifecycleTransformer{" +
-            "observable=" + observable +
-            '}'.toString()
+    override fun toString(): String = "LifecycleTransformer{observable= $observable }"
 }
