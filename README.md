@@ -18,3 +18,30 @@ implementation 'com.safframework.livedata:livedata-ext:0.2.1'
 * 支持RxJava的Observable、Flowbale、Completable、Single、Maybe转换成LiveData。通过它们的扩展函数toLiveData()实现。
 
 * 支持RxJava的Observable、Flowbale、Completable、Single、Maybe绑定Lifecycle。通过它们的扩展函数bindLifecycle()实现。
+
+
+# 联系方式:
+
+Wechat：fengzhizi715
+
+> Java与Android技术栈：每周更新推送原创技术文章，欢迎扫描下方的公众号二维码并关注，期待与您的共同成长和进步。
+
+![](https://user-gold-cdn.xitu.io/2018/7/24/164cc729c7c69ac1?w=344&h=344&f=jpeg&s=9082)
+
+
+License
+-------
+
+    Copyright (C) 2017 - present, Tony Shen.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
