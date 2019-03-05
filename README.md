@@ -19,6 +19,11 @@ implementation 'com.safframework.livedata:livedata-ext:0.2.1'
 
 * 支持RxJava的Observable、Flowbale、Completable、Single、Maybe绑定Lifecycle。通过它们的扩展函数bindLifecycle()实现。
 
+## TODO List:
+
+* 升级 Kotlin 版本
+* 支持AndroidX
+
 
 # 联系方式:
 
